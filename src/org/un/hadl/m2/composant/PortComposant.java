@@ -10,8 +10,11 @@ public class PortComposant {
     public PortComposant() {
     }
 
-    public PortComposant(Binding binding, Attachement attachement) {
+    public PortComposant(Binding binding) {
         this.binding = binding;
+    }
+
+    public PortComposant(Attachement attachement) {
         this.attachement = attachement;
     }
 

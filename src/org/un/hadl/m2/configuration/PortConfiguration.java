@@ -2,11 +2,9 @@ package org.un.hadl.m2.configuration;
 
 public class PortConfiguration {
     private Binding binding;
-    private Attachement attachement;
 
-    public PortConfiguration(Binding binding, Attachement attachement) {
+    public PortConfiguration(Binding binding) {
         this.binding = binding;
-        this.attachement = attachement;
     }
 
     public PortConfiguration() {
@@ -20,11 +18,4 @@ public class PortConfiguration {
         this.binding = binding;
     }
 
-    public Attachement getAttachement() {
-        return attachement;
-    }
-
-    public void setAttachement(Attachement attachement) {
-        this.attachement = attachement;
-    }
 }
