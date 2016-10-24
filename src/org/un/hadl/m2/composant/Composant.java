@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Composant {
 
-	private List<PortComposant> composants = new ArrayList<PortComposant>();
+	private List<PortComposant> ports = new ArrayList<PortComposant>();
 	private List<Service> services = new ArrayList<Service>();
 
 }
