@@ -1,13 +1,5 @@
 package com.alma.hadl.m2.configuration;
 
-import com.alma.hadl.m2.util.Callable;
-import com.alma.hadl.m2.util.Observable;
-
-public class PortConfigurationRequis extends Observable implements Callable {
+public abstract class PortConfigurationRequis extends PortConfiguration {
 	
-	@Override
-	public void call(String message) {
-		this.notifyObservers(message);
-	}
-
 }

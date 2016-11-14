@@ -1,7 +1,14 @@
 package com.alma.hadl.m2.util;
 
-public interface Callable {
+public abstract class Callable extends Observable {
 
-	void call(String message);
+	public void call(String message) {
+		execute(message);
+		this.notifyObservers(message);
+	}
+	
+	protected void execute(String message) {
+		
+	}
 	
 }

@@ -1,11 +1,11 @@
 package com.alma.hadl.m2.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Observable {
 
-	private List<Observer> observers = new ArrayList<Observer>();
+	private Set<Observer> observers = new HashSet<Observer>();
 	
 	public void addObserver(Observer observer) {
 		observers.add(observer);
