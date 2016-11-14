@@ -13,11 +13,18 @@ import com.alma.hadl.m1.clientserver.server.ReceiveRequest;
 import com.alma.hadl.m1.clientserver.server.SendResponse;
 import com.alma.hadl.m1.clientserver.server.Server;
 import com.alma.hadl.m1.clientserver.serverdetails.ServerDetails;
+import com.alma.hadl.m1.clientserver.serverdetails.clearance.ClearanceRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.clearance.ReceiveAuthRequestCalled;
+import com.alma.hadl.m1.clientserver.serverdetails.clearance.ReceiveSecurityCheckResponseCalled;
+import com.alma.hadl.m1.clientserver.serverdetails.clearance.SendAuthResponseCaller;
+import com.alma.hadl.m1.clientserver.serverdetails.clearance.SendSecurityCheckRequestCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.ConnectionManager;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.ReceiveDBQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.ReceiveExternalSocketRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.connection.ReceiveSecurityCheckResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendDBQueryRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendExternalSocketResponse;
+import com.alma.hadl.m1.clientserver.serverdetails.connection.SendSecurityCheckRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.database.Database;
 import com.alma.hadl.m1.clientserver.serverdetails.database.ReceiveDBQueryRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.database.SendDBQueryResponse;
@@ -26,6 +33,10 @@ import com.alma.hadl.m1.clientserver.serverdetails.sql.ReceiveDBQueryResponseCal
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SQLRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SendDBQueryRequestCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SendDBQueryResponseCaller;
+import com.alma.hadl.m1.clientserver.serverdetails.security.ReceiveAuthRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.security.SecurityManager;
+import com.alma.hadl.m1.clientserver.serverdetails.security.SendAuthResponse;
+
 
 public class Application {
 
@@ -62,12 +73,16 @@ public class Application {
 		SendExternalSocketResponse sendExternalSocketResponse = new SendExternalSocketResponse();
 		SendDBQueryRequest sendDBQueryRequest = new SendDBQueryRequest();
 		ReceiveDBQueryResponse receiveDBQueryResponse = new ReceiveDBQueryResponse();
+		ReceiveSecurityCheckResponse receiveSecurityCheckResponse = new ReceiveSecurityCheckResponse();
+		SendSecurityCheckRequest sendSecurityCheckRequest = new SendSecurityCheckRequest();
 		
 		//== Connection Manager
 		ConnectionManager connectionManager = new ConnectionManager(receiveExternalSocketRequest,
 				sendExternalSocketResponse,
 				receiveDBQueryResponse,
-				sendDBQueryRequest);
+				sendDBQueryRequest,
+				receiveSecurityCheckResponse,
+				sendSecurityCheckRequest);
 		
 		//== Ports Database
 		ReceiveDBQueryRequest receiveDBQueryRequest = new ReceiveDBQueryRequest();
@@ -75,6 +90,13 @@ public class Application {
 		
 		//== Database
 		Database database = new Database(sendDBQueryResponse, receiveDBQueryRequest);
+		
+		//== Ports Security Manager
+		ReceiveAuthRequest receiveAuthRequest = new ReceiveAuthRequest();
+		SendAuthResponse sendAuthResponse = new SendAuthResponse();
+		
+		//== Security Manager
+		SecurityManager securityManager = new SecurityManager(receiveAuthRequest, sendAuthResponse);
 		
 		//== Roles SQL Request
 		SendDBQueryRequestCaller sendDBQueryRequestCaller = new SendDBQueryRequestCaller();
@@ -88,8 +110,24 @@ public class Application {
 				sendDBQueryResponseCaller,
 				receiveDBQueryRequestCalled);
 		
+		//== Roles Clearance Request
+		SendSecurityCheckRequestCaller sendSecurityCheckRequestCaller = new SendSecurityCheckRequestCaller();
+		ReceiveSecurityCheckResponseCalled receiveSecurityCheckResponseCalled = new ReceiveSecurityCheckResponseCalled();
+		SendAuthResponseCaller sendAuthResponseCaller = new SendAuthResponseCaller();
+		ReceiveAuthRequestCalled receiveAuthRequestCalled = new ReceiveAuthRequestCalled();
+		
+		//== Clearance Request
+		ClearanceRequest clearanceRequest = new ClearanceRequest(sendSecurityCheckRequestCaller,
+				receiveSecurityCheckResponseCalled,
+				sendAuthResponseCaller,
+				receiveAuthRequestCalled);
+		
 		//== Configuration Client Server
-		ServerDetails serverDetails = new ServerDetails(connectionManager, database, sqlRequest);
+		ServerDetails serverDetails = new ServerDetails(connectionManager,
+				database,
+				securityManager,
+				sqlRequest,
+				clearanceRequest);
 		
 		//== Bigu configurationuuuuu
 		ClientServer cs = new ClientServer(client, serveur, rpc, serverDetails);

@@ -7,11 +7,15 @@ public class ConnectionManager extends Composant {
 	public ConnectionManager(ReceiveExternalSocketRequest receiveExternalSocketRequest,
 			SendExternalSocketResponse sendExternalSocketResponse,
 			ReceiveDBQueryResponse receiveDBQueryResponse,
-			SendDBQueryRequest sendDBQueryRequest) {
+			SendDBQueryRequest sendDBQueryRequest,
+			ReceiveSecurityCheckResponse receiveSecurityCheckResponse,
+			SendSecurityCheckRequest sendSecurityCheckRequest) {
 		this.ajouterPortFournis(receiveExternalSocketRequest);
 		this.ajouterPortRequis(sendExternalSocketResponse);
 		this.ajouterPortFournis(receiveDBQueryResponse);
 		this.ajouterPortRequis(sendDBQueryRequest);
+		this.ajouterPortFournis(receiveSecurityCheckResponse);
+		this.ajouterPortRequis(sendSecurityCheckRequest);
 	}
 
 }
