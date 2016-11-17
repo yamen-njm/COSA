@@ -23,8 +23,9 @@ public class ClientServer extends Configuration {
 		PortConfigurationRequis sendRequest = new SendRequest();
 		PortConfigurationFournis receiveResponse = new ReceiveResponse();
 		
-		this.ajouterPortRequis(sendRequest);
-		this.ajouterPortFournis(receiveResponse);
+		this.ajouterPortRequis("SendRequest", sendRequest);
+		this.ajouterPortFournis("ReceiveResponse", receiveResponse);
+		
 		this.bind(sendRequest, client.getPortRequis("SendRequest"));
 		this.bind(client.getPortFournis("ReceiveResponse"), receiveResponse);
 		

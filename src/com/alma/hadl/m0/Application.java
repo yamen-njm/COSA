@@ -47,14 +47,14 @@ public class Application {
 		ReceiveResponse clientReceiveResponse = new ReceiveResponse();
 		
 		//== Client
-		Client client = new Client(clientSendRequest, clientReceiveResponse);
+		Client client = new Client(clientReceiveResponse, clientSendRequest);
 		
 		//== Ports Serveur
 		SendResponse serveurSendResponse = new SendResponse();
 		ReceiveRequest serveurReceiveRequest = new ReceiveRequest();
 		
 		//== Serveur
-		Server serveur = new Server(serveurSendResponse, serveurReceiveRequest);
+		Server serveur = new Server(serveurReceiveRequest, serveurSendResponse);
 		
 		//== Roles RPC
 		SendRequestCaller sendRequestCaller = new SendRequestCaller();
@@ -89,7 +89,7 @@ public class Application {
 		SendDBQueryResponse sendDBQueryResponse = new SendDBQueryResponse();
 		
 		//== Database
-		Database database = new Database(sendDBQueryResponse, receiveDBQueryRequest);
+		Database database = new Database(receiveDBQueryRequest, sendDBQueryResponse);
 		
 		//== Ports Security Manager
 		ReceiveAuthRequest receiveAuthRequest = new ReceiveAuthRequest();

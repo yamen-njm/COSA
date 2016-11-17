@@ -20,12 +20,12 @@ public abstract class Configuration implements Observer {
 	private Map<String, PortConfigurationFournis> portsFournis = new HashMap<String, PortConfigurationFournis>();
 	private Map<String, PortConfigurationRequis> portsRequis = new HashMap<String, PortConfigurationRequis>();
 	
-	protected void ajouterPortFournis(PortConfigurationFournis portFournis) {
-		portsFournis.put(portFournis.getNom(), portFournis);
+	protected void ajouterPortFournis(String nom, PortConfigurationFournis portFournis) {
+		portsFournis.put(nom, portFournis);
 	}
 	
-	protected void ajouterPortRequis(PortConfigurationRequis portRequis) {
-		portsRequis.put(portRequis.getNom(), portRequis);
+	protected void ajouterPortRequis(String nom, PortConfigurationRequis portRequis) {
+		portsRequis.put(nom, portRequis);
 	}
 	
 	public PortConfigurationFournis getPortFournis(String nom) {

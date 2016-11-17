@@ -11,13 +11,13 @@ public abstract class Composant {
 	private Map<String, PortComposantRequis> portsRequis = new HashMap<String, PortComposantRequis>();
 	private List<Service> services = new ArrayList<Service>();
 	
-	protected void ajouterPortFournis(PortComposantFournis portFournis) {
-		portsFournis.put(portFournis.getNom(), portFournis);
+	protected void ajouterPortFournis(String nom, PortComposantFournis portFournis) {
+		portsFournis.put(nom, portFournis);
 		portFournis.setComposant(this);
 	}
 	
-	protected void ajouterPortRequis(PortComposantRequis portRequis) {
-		portsRequis.put(portRequis.getNom(), portRequis);
+	protected void ajouterPortRequis(String nom, PortComposantRequis portRequis) {
+		portsRequis.put(nom, portRequis);
 		portRequis.setComposant(this);
 	}
 	

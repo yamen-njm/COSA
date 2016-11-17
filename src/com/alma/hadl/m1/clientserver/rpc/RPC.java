@@ -8,9 +8,10 @@ public class RPC extends Connecteur {
 			ReceiveRequestCalled receiveRequestCalled,
 			SendResponseCaller sendResponseCaller,
 			ReceiveResponseCalled receiveResponseCalled) {
-		
-		this.ajouterRoles(receiveRequestCalled, sendRequestCaller);
-		this.ajouterRoles(receiveResponseCalled, sendResponseCaller);
+		this.ajouterRoles("ReceiveRequestCalled", receiveRequestCalled,
+				"SendRequestCaller", sendRequestCaller);
+		this.ajouterRoles("ReceiveResponseCalled", receiveResponseCalled,
+				"SendResponseCaller", sendResponseCaller);
 	}
 
 }

@@ -8,8 +8,10 @@ public class SQLRequest extends Connecteur {
 			ReceiveDBQueryResponseCalled receiveDBQueryResponseCalled,
 			SendDBQueryResponseCaller sendDBQueryResponseCaller,
 			ReceiveDBQueryRequestCalled receiveDBQueryRequestCalled) {
-		this.ajouterRoles(receiveDBQueryResponseCalled, sendDBQueryRequestCaller);
-		this.ajouterRoles(receiveDBQueryRequestCalled, sendDBQueryResponseCaller);
+		this.ajouterRoles("ReceiveDBQueryResponseCalled", receiveDBQueryResponseCalled,
+				"SendDBQueryRequestCaller", sendDBQueryRequestCaller);
+		this.ajouterRoles("ReceiveDBQueryRequestCalled", receiveDBQueryRequestCalled,
+				"SendDBQueryResponseCaller", sendDBQueryResponseCaller);
 	}
 	
 }
