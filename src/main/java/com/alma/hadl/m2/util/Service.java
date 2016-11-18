@@ -3,7 +3,7 @@ package com.alma.hadl.m2.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public abstract class Callable extends Observable {
+public abstract class Service extends Observable {
 	
 	private final Logger logger = LogManager.getLogger(this.getClass());
 

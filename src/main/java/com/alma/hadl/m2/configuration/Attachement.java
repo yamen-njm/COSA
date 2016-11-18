@@ -1,22 +1,22 @@
 package com.alma.hadl.m2.configuration;
 
-import com.alma.hadl.m2.util.Callable;
+import com.alma.hadl.m2.util.Service;
 
 public class Attachement {
 
-	private Callable from;
-	private Callable to;
+	private Service from;
+	private Service to;
 	
-	public Attachement(Callable from, Callable to) {
+	public Attachement(Service from, Service to) {
 		this.from = from;
 		this.to = to;
 	}
 	
-	public Callable getFrom() {
+	public Service getFrom() {
 		return from;
 	}
 
-	public Callable getTo() {
+	public Service getTo() {
 		return to;
 	}
 
