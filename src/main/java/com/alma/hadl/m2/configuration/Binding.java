@@ -1,22 +1,22 @@
 package com.alma.hadl.m2.configuration;
 
-import com.alma.hadl.m2.composant.Port;
+import com.alma.hadl.m2.util.Service;
 
 public class Binding {
 	
-	private Port from;
-	private Port to;
+	private Service from;
+	private Service to;
 
-	public Binding(Port portFrom, Port portTo) {
+	public Binding(Service portFrom, Service portTo) {
 		from = portFrom;
 		to = portTo;
 	}
 	
-	public Port getFrom() {
+	public Service getFrom() {
 		return from;
 	}
 
-	public Port getTo() {
+	public Service getTo() {
 		return to;
 	}
 	

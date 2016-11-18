@@ -37,7 +37,6 @@ import com.alma.hadl.m1.clientserver.serverdetails.security.ReceiveAuthRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SecurityManager;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SendAuthResponse;
 
-
 public class Application {
 
 	public static void main(String[] args) {

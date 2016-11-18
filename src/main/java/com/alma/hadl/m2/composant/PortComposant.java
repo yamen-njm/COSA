@@ -1,6 +1,8 @@
 package com.alma.hadl.m2.composant;
 
-public abstract class PortComposant extends Port {
+import com.alma.hadl.m2.util.Service;
+
+public abstract class PortComposant extends Service {
 	
 	private Composant composant;
 	
