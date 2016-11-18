@@ -6,9 +6,9 @@ import com.alma.hadl.m2.composant.PortComposantRequis;
 
 public class Server extends Composant {
 
-	public Server(PortComposantFournis receiveResponse, PortComposantRequis sendResponse) {
-		this.ajouterPortFournis("ReceiveRequest", receiveResponse);
+	public Server(PortComposantRequis sendResponse, PortComposantFournis receiveResponse) {
 		this.ajouterPortRequis("SendResponse", sendResponse);
+		this.ajouterPortFournis("ReceiveRequest", receiveResponse);
 	}
 	
 }

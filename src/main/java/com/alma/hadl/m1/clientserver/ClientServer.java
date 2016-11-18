@@ -14,17 +14,17 @@ import com.alma.hadl.m2.configuration.PortConfigurationRequis;
 public class ClientServer extends Configuration {
 			
 	public ClientServer(Client client, Server server, RPC rpc, ServerDetails serverDetails) {
-		this.attacher(client.getPortRequis("SendRequest"), rpc.getRoleFournis("SendRequestCaller"));
-		this.attacher(client.getPortFournis("ReceiveResponse"), rpc.getRoleRequis("ReceiveResponseCalled"));
-		this.attacher(server.getPortRequis("SendResponse"), rpc.getRoleFournis("SendResponseCaller"));
-		this.attacher(server.getPortFournis("ReceiveRequest"), rpc.getRoleRequis("ReceiveRequestCalled"));
-	
 		//== Ports
 		PortConfigurationRequis sendRequest = new SendRequest();
 		PortConfigurationFournis receiveResponse = new ReceiveResponse();
 		
 		this.ajouterPortRequis("SendRequest", sendRequest);
 		this.ajouterPortFournis("ReceiveResponse", receiveResponse);
+		
+		this.attacher(client.getPortRequis("SendRequest"), rpc.getRoleFournis("SendRequestCaller"));
+		this.attacher(client.getPortFournis("ReceiveResponse"), rpc.getRoleRequis("ReceiveResponseCalled"));
+		this.attacher(server.getPortRequis("SendResponse"), rpc.getRoleFournis("SendResponseCaller"));
+		this.attacher(server.getPortFournis("ReceiveRequest"), rpc.getRoleRequis("ReceiveRequestCalled"));
 		
 		this.bind(sendRequest, client.getPortRequis("SendRequest"));
 		this.bind(client.getPortFournis("ReceiveResponse"), receiveResponse);

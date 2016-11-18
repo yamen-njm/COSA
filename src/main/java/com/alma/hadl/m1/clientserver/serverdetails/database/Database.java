@@ -6,10 +6,10 @@ import com.alma.hadl.m2.composant.PortComposantRequis;
 
 public class Database extends Composant {
 	
-	public Database(PortComposantFournis receiveDBQueryRequest,
-			PortComposantRequis sendDBQueryResponse) {
-		this.ajouterPortFournis("ReceiveDBQueryRequest", receiveDBQueryRequest);
+	public Database(PortComposantRequis sendDBQueryResponse,
+			PortComposantFournis receiveDBQueryRequest) {
 		this.ajouterPortRequis("SendDBQueryResponse", sendDBQueryResponse);
+		this.ajouterPortFournis("ReceiveDBQueryRequest", receiveDBQueryRequest);
 	}
 	
 }

@@ -47,14 +47,14 @@ public class Application {
 		ReceiveResponse clientReceiveResponse = new ReceiveResponse();
 		
 		//== Client
-		Client client = new Client(clientReceiveResponse, clientSendRequest);
+		Client client = new Client(clientSendRequest, clientReceiveResponse);
 		
 		//== Ports Serveur
 		SendResponse serveurSendResponse = new SendResponse();
 		ReceiveRequest serveurReceiveRequest = new ReceiveRequest();
 		
 		//== Serveur
-		Server serveur = new Server(serveurReceiveRequest, serveurSendResponse);
+		Server serveur = new Server(serveurSendResponse, serveurReceiveRequest);
 		
 		//== Roles RPC
 		SendRequestCaller sendRequestCaller = new SendRequestCaller();
@@ -63,10 +63,10 @@ public class Application {
 		ReceiveResponseCalled receiveResponseCalled = new ReceiveResponseCalled();
 		
 		//== RPC
-		RPC rpc = new RPC(sendRequestCaller,
-				receiveRequestCalled,
-				sendResponseCaller,
-				receiveResponseCalled);
+		RPC rpc = new RPC(receiveRequestCalled,
+				receiveResponseCalled,
+				sendRequestCaller,
+				sendResponseCaller);
 		
 		//== Ports Connection Manager
 		ReceiveExternalSocketRequest receiveExternalSocketRequest = new ReceiveExternalSocketRequest();
@@ -77,50 +77,50 @@ public class Application {
 		SendSecurityCheckRequest sendSecurityCheckRequest = new SendSecurityCheckRequest();
 		
 		//== Connection Manager
-		ConnectionManager connectionManager = new ConnectionManager(receiveExternalSocketRequest,
-				sendExternalSocketResponse,
-				receiveDBQueryResponse,
+		ConnectionManager connectionManager = new ConnectionManager(sendExternalSocketResponse,
 				sendDBQueryRequest,
-				receiveSecurityCheckResponse,
-				sendSecurityCheckRequest);
+				sendSecurityCheckRequest,
+				receiveExternalSocketRequest,
+				receiveDBQueryResponse,
+				receiveSecurityCheckResponse);
 		
 		//== Ports Database
-		ReceiveDBQueryRequest receiveDBQueryRequest = new ReceiveDBQueryRequest();
 		SendDBQueryResponse sendDBQueryResponse = new SendDBQueryResponse();
+		ReceiveDBQueryRequest receiveDBQueryRequest = new ReceiveDBQueryRequest();
 		
 		//== Database
-		Database database = new Database(receiveDBQueryRequest, sendDBQueryResponse);
+		Database database = new Database(sendDBQueryResponse, receiveDBQueryRequest);
 		
 		//== Ports Security Manager
-		ReceiveAuthRequest receiveAuthRequest = new ReceiveAuthRequest();
 		SendAuthResponse sendAuthResponse = new SendAuthResponse();
+		ReceiveAuthRequest receiveAuthRequest = new ReceiveAuthRequest();
 		
 		//== Security Manager
-		SecurityManager securityManager = new SecurityManager(receiveAuthRequest, sendAuthResponse);
+		SecurityManager securityManager = new SecurityManager(sendAuthResponse, receiveAuthRequest);
 		
 		//== Roles SQL Request
-		SendDBQueryRequestCaller sendDBQueryRequestCaller = new SendDBQueryRequestCaller();
 		ReceiveDBQueryResponseCalled receiveDBQueryResponseCalled = new ReceiveDBQueryResponseCalled();
-		SendDBQueryResponseCaller sendDBQueryResponseCaller = new SendDBQueryResponseCaller();
 		ReceiveDBQueryRequestCalled receiveDBQueryRequestCalled = new ReceiveDBQueryRequestCalled();
+		SendDBQueryRequestCaller sendDBQueryRequestCaller = new SendDBQueryRequestCaller();
+		SendDBQueryResponseCaller sendDBQueryResponseCaller = new SendDBQueryResponseCaller();
 		
 		//== SQL Request
-		SQLRequest sqlRequest = new SQLRequest(sendDBQueryRequestCaller,
-				receiveDBQueryResponseCalled,
-				sendDBQueryResponseCaller,
-				receiveDBQueryRequestCalled);
+		SQLRequest sqlRequest = new SQLRequest(receiveDBQueryResponseCalled,
+				receiveDBQueryRequestCalled,
+				sendDBQueryRequestCaller,
+				sendDBQueryResponseCaller);
 		
 		//== Roles Clearance Request
-		SendSecurityCheckRequestCaller sendSecurityCheckRequestCaller = new SendSecurityCheckRequestCaller();
 		ReceiveSecurityCheckResponseCalled receiveSecurityCheckResponseCalled = new ReceiveSecurityCheckResponseCalled();
-		SendAuthResponseCaller sendAuthResponseCaller = new SendAuthResponseCaller();
 		ReceiveAuthRequestCalled receiveAuthRequestCalled = new ReceiveAuthRequestCalled();
+		SendSecurityCheckRequestCaller sendSecurityCheckRequestCaller = new SendSecurityCheckRequestCaller();
+		SendAuthResponseCaller sendAuthResponseCaller = new SendAuthResponseCaller();
 		
 		//== Clearance Request
-		ClearanceRequest clearanceRequest = new ClearanceRequest(sendSecurityCheckRequestCaller,
-				receiveSecurityCheckResponseCalled,
-				sendAuthResponseCaller,
-				receiveAuthRequestCalled);
+		ClearanceRequest clearanceRequest = new ClearanceRequest(receiveSecurityCheckResponseCalled,
+				receiveAuthRequestCalled,
+				sendSecurityCheckRequestCaller,
+				sendAuthResponseCaller);
 		
 		//== Configuration Client Server
 		ServerDetails serverDetails = new ServerDetails(connectionManager,

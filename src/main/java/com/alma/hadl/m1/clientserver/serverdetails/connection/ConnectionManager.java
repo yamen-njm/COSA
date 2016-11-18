@@ -6,18 +6,18 @@ import com.alma.hadl.m2.composant.PortComposantRequis;
 
 public class ConnectionManager extends Composant {
 	
-	public ConnectionManager(PortComposantFournis receiveExternalSocketRequest,
-			PortComposantRequis sendExternalSocketResponse,
-			PortComposantFournis receiveDBQueryResponse,
+	public ConnectionManager(PortComposantRequis sendExternalSocketResponse,
 			PortComposantRequis sendDBQueryRequest,
-			PortComposantFournis receiveSecurityCheckResponse,
-			PortComposantRequis sendSecurityCheckRequest) {
-		this.ajouterPortFournis("ReceiveExternalSocketRequest", receiveExternalSocketRequest);
+			PortComposantRequis sendSecurityCheckRequest,
+			PortComposantFournis receiveExternalSocketRequest,
+			PortComposantFournis receiveDBQueryResponse,
+			PortComposantFournis receiveSecurityCheckResponse) {
 		this.ajouterPortRequis("SendExternalSocketResponse", sendExternalSocketResponse);
-		this.ajouterPortFournis("ReceiveDBQueryResponse", receiveDBQueryResponse);
 		this.ajouterPortRequis("SendDBQueryRequest", sendDBQueryRequest);
-		this.ajouterPortFournis("ReceiveSecurityCheckResponse", receiveSecurityCheckResponse);
 		this.ajouterPortRequis("SendSecurityCheckRequest", sendSecurityCheckRequest);
+		this.ajouterPortFournis("ReceiveExternalSocketRequest", receiveExternalSocketRequest);
+		this.ajouterPortFournis("ReceiveDBQueryResponse", receiveDBQueryResponse);
+		this.ajouterPortFournis("ReceiveSecurityCheckResponse", receiveSecurityCheckResponse);
 	}
 
 }

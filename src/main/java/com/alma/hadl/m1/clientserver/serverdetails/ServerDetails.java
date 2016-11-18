@@ -16,8 +16,8 @@ public class ServerDetails extends Configuration {
 		PortConfigurationFournis receiveRequest = new ReceiveRequest();
 		PortConfigurationRequis sendResponse = new SendResponse();
 		
-		this.ajouterPortFournis("ReceiveRequest", receiveRequest);
 		this.ajouterPortRequis("SendResponse", sendResponse);
+		this.ajouterPortFournis("ReceiveRequest", receiveRequest);
 		
 		this.bind(this.getPortFournis("ReceiveRequest"),
 				connectionManager.getPortFournis("ReceiveExternalSocketRequest"));

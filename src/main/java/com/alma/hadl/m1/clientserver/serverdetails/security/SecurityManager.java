@@ -6,10 +6,10 @@ import com.alma.hadl.m2.composant.PortComposantRequis;
 
 public class SecurityManager extends Composant {
 	
-	public SecurityManager(PortComposantFournis receiveAuthRequest,
-			PortComposantRequis sendAuthResponse) {
-		this.ajouterPortFournis("ReceiveAuthRequest", receiveAuthRequest);
+	public SecurityManager(PortComposantRequis sendAuthResponse,
+			PortComposantFournis receiveAuthRequest) {
 		this.ajouterPortRequis("SendAuthResponse", sendAuthResponse);
+		this.ajouterPortFournis("ReceiveAuthRequest", receiveAuthRequest);
 	}
 
 }
