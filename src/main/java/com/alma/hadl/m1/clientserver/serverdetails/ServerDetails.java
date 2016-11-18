@@ -12,7 +12,8 @@ public class ServerDetails extends Configuration {
 			Composant database,
 			Composant securityManager,
 			Connecteur sqlRequest,
-			Connecteur clearanceRequest) {
+			Connecteur clearanceRequest,
+			Connecteur securityQuery) {
 		PortConfigurationFournis receiveRequest = new ReceiveRequest();
 		PortConfigurationRequis sendResponse = new SendResponse();
 		
@@ -42,7 +43,14 @@ public class ServerDetails extends Configuration {
 		this.attacher(securityManager.getPortRequis("SendAuthResponse"),
 				clearanceRequest.getRoleFournis("SendAuthResponseCaller"));
 
-		
+		this.attacher(database.getPortRequis("SendCQueryResponse"),
+				securityQuery.getRoleFournis("SendCQueryResponseCaller"));
+		this.attacher(database.getPortFournis("ReceiveCQueryRequest"),
+				securityQuery.getRoleRequis("ReceiveCQueryRequestCalled"));
+		this.attacher(securityManager.getPortRequis("SendCQueryRequest"),
+				securityQuery.getRoleFournis("SendCQueryRequestCaller"));
+		this.attacher(securityManager.getPortFournis("ReceiveCQueryResponse"),
+				securityQuery.getRoleRequis("ReceiveCQueryResponseCalled"));
 	}
 
 }

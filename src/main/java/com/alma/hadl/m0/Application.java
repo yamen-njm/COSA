@@ -26,7 +26,9 @@ import com.alma.hadl.m1.clientserver.serverdetails.connection.SendDBQueryRequest
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendExternalSocketResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendSecurityCheckRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.database.Database;
+import com.alma.hadl.m1.clientserver.serverdetails.database.ReceiveCQueryRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.database.ReceiveDBQueryRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.database.SendCQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.database.SendDBQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.ReceiveDBQueryRequestCalled;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.ReceiveDBQueryResponseCalled;
@@ -34,8 +36,15 @@ import com.alma.hadl.m1.clientserver.serverdetails.sql.SQLRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SendDBQueryRequestCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SendDBQueryResponseCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.security.ReceiveAuthRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.security.ReceiveCQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SecurityManager;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SendAuthResponse;
+import com.alma.hadl.m1.clientserver.serverdetails.security.SendCQueryRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.securityQuery.ReceiveCQueryRequestCalled;
+import com.alma.hadl.m1.clientserver.serverdetails.securityQuery.ReceiveCQueryResponseCalled;
+import com.alma.hadl.m1.clientserver.serverdetails.securityQuery.SecurityQuery;
+import com.alma.hadl.m1.clientserver.serverdetails.securityQuery.SendCQueryRequestCaller;
+import com.alma.hadl.m1.clientserver.serverdetails.securityQuery.SendCQueryResponseCaller;
 
 public class Application {
 
@@ -85,17 +94,27 @@ public class Application {
 		
 		//== Ports Database
 		SendDBQueryResponse sendDBQueryResponse = new SendDBQueryResponse();
+		SendCQueryResponse sendCQueryResponse = new SendCQueryResponse();
 		ReceiveDBQueryRequest receiveDBQueryRequest = new ReceiveDBQueryRequest();
+		ReceiveCQueryRequest receiveCQueryRequest = new ReceiveCQueryRequest();
 		
 		//== Database
-		Database database = new Database(sendDBQueryResponse, receiveDBQueryRequest);
+		Database database = new Database(sendDBQueryResponse,
+				sendCQueryResponse,
+				receiveDBQueryRequest,
+				receiveCQueryRequest);
 		
 		//== Ports Security Manager
 		SendAuthResponse sendAuthResponse = new SendAuthResponse();
+		SendCQueryRequest sendCQueryRequest = new SendCQueryRequest();
 		ReceiveAuthRequest receiveAuthRequest = new ReceiveAuthRequest();
+		ReceiveCQueryResponse receiveCQueryResponse = new ReceiveCQueryResponse();
 		
 		//== Security Manager
-		SecurityManager securityManager = new SecurityManager(sendAuthResponse, receiveAuthRequest);
+		SecurityManager securityManager = new SecurityManager(sendAuthResponse,
+				sendCQueryRequest,
+				receiveAuthRequest,
+				receiveCQueryResponse);
 		
 		//== Roles SQL Request
 		ReceiveDBQueryResponseCalled receiveDBQueryResponseCalled = new ReceiveDBQueryResponseCalled();
@@ -121,12 +140,25 @@ public class Application {
 				sendSecurityCheckRequestCaller,
 				sendAuthResponseCaller);
 		
+		//== Role Security Query
+		ReceiveCQueryResponseCalled receiveCQueryResponseCalled = new ReceiveCQueryResponseCalled();
+		ReceiveCQueryRequestCalled receiveCQueryRequestCalled = new ReceiveCQueryRequestCalled();
+		SendCQueryRequestCaller sendCQueryRequestCaller = new SendCQueryRequestCaller();
+		SendCQueryResponseCaller sendCQueryResponseCaller = new SendCQueryResponseCaller();
+		
+		//== Security Query
+		SecurityQuery securityQuery = new SecurityQuery(receiveCQueryResponseCalled,
+				receiveCQueryRequestCalled,
+				sendCQueryRequestCaller,
+				sendCQueryResponseCaller);
+		
 		//== Configuration Client Server
 		ServerDetails serverDetails = new ServerDetails(connectionManager,
 				database,
 				securityManager,
 				sqlRequest,
-				clearanceRequest);
+				clearanceRequest,
+				securityQuery);
 		
 		//== Bigu configurationuuuuu
 		ClientServer cs = new ClientServer(client, serveur, rpc, serverDetails);
