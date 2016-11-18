@@ -12,6 +12,11 @@
   <url>https://github.com/bigali/HADL</url>
   
   <dependencies>
+  	<dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.7</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

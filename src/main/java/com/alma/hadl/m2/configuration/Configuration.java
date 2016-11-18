@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alma.hadl.m2.composant.PortComposantFournis;
 import com.alma.hadl.m2.composant.PortComposantRequis;
 import com.alma.hadl.m2.connecteur.RoleFournis;
@@ -13,6 +16,8 @@ import com.alma.hadl.m2.util.Observable;
 import com.alma.hadl.m2.util.Observer;
 
 public abstract class Configuration implements Observer {
+	
+	private static Logger logger = LogManager.getLogger();
 
 	private List<Attachement> attachements = new ArrayList<Attachement>();
 	private List<Binding> bindings = new ArrayList<Binding>();
@@ -38,16 +43,16 @@ public abstract class Configuration implements Observer {
 	
 	@Override
 	public void update(Observable observable, String message) {
-		System.out.println("[" + this.getClass().getName() + "] : " + observable.getClass().getName());
-
 		for (Attachement attachement : attachements) {
 			if (attachement.getFrom() == observable) {
+				logger.trace("[attachement] {} <-> {}", attachement.getFrom().getClass().getName(), attachement.getTo().getClass().getName());
 				attachement.getTo().call(message);
 			}
 		}
 		
 		for (Binding binding : bindings) {
 			if (binding.getFrom() == observable) {
+				logger.trace("[binding] {} :: {}", binding.getFrom().getClass().getName(), binding.getTo().getClass().getName());
 				binding.getTo().call(message);
 			}
 		}

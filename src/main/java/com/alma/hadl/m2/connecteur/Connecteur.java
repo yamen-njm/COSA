@@ -3,10 +3,15 @@ package com.alma.hadl.m2.connecteur;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.alma.hadl.m2.util.Observable;
 import com.alma.hadl.m2.util.Observer;
 
 public abstract class Connecteur implements Observer {
+	
+	private static Logger logger = LogManager.getLogger();
 
 	private List<Glue> glues = new ArrayList<Glue>();
 
@@ -40,6 +45,7 @@ public abstract class Connecteur implements Observer {
 	public void update(Observable observable, String message) {
 		for (Glue glue : glues) {
 			if (glue.getRoleFournis() == observable) {
+				logger.trace("[glue] {} >=< {}", glue.getRoleFournis().getClass().getName(), glue.getRoleRequis().getClass().getName());
 				glue.getRoleRequis().call(message);
 			}
 		}
