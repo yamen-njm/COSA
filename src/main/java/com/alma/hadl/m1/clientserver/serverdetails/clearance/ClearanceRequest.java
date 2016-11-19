@@ -8,12 +8,12 @@ public class ClearanceRequest extends Connecteur {
 	
 	public ClearanceRequest(RoleRequis receiveSecurityCheckResponseCalled,
 			RoleRequis receiveAuthRequestCalled,
-			RoleFournis sendSecurityCheckRequestCaller,
-			RoleFournis sendAuthResponseCaller) {
+			RoleFournis sendAuthResponseCaller,
+			RoleFournis sendSecurityCheckRequestCaller) {
 		this.ajouterRoles("ReceiveSecurityCheckResponseCalled", receiveSecurityCheckResponseCalled,
-				"SendSecurityCheckRequestCaller", sendSecurityCheckRequestCaller);
-		this.ajouterRoles("ReceiveAuthRequestCalled", receiveAuthRequestCalled,
 				"SendAuthResponseCaller", sendAuthResponseCaller);
+		this.ajouterRoles("ReceiveAuthRequestCalled", receiveAuthRequestCalled,
+				"SendSecurityCheckRequestCaller", sendSecurityCheckRequestCaller);
 	}
 
 }

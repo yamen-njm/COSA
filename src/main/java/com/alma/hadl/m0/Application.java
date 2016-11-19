@@ -19,15 +19,12 @@ import com.alma.hadl.m1.clientserver.serverdetails.clearance.ReceiveSecurityChec
 import com.alma.hadl.m1.clientserver.serverdetails.clearance.SendAuthResponseCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.clearance.SendSecurityCheckRequestCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.ConnectionManager;
-import com.alma.hadl.m1.clientserver.serverdetails.connection.ReceiveDBQueryResponse;
-import com.alma.hadl.m1.clientserver.serverdetails.connection.ReceiveExternalSocketRequest;
-import com.alma.hadl.m1.clientserver.serverdetails.connection.ReceiveSecurityCheckResponse;
+import com.alma.hadl.m1.clientserver.serverdetails.connection.ConnectionPorts;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendDBQueryRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendExternalSocketResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.connection.SendSecurityCheckRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.database.Database;
-import com.alma.hadl.m1.clientserver.serverdetails.database.ReceiveCQueryRequest;
-import com.alma.hadl.m1.clientserver.serverdetails.database.ReceiveDBQueryRequest;
+import com.alma.hadl.m1.clientserver.serverdetails.database.DatabasePorts;
 import com.alma.hadl.m1.clientserver.serverdetails.database.SendCQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.database.SendDBQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.ReceiveDBQueryRequestCalled;
@@ -35,9 +32,8 @@ import com.alma.hadl.m1.clientserver.serverdetails.sql.ReceiveDBQueryResponseCal
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SQLRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SendDBQueryRequestCaller;
 import com.alma.hadl.m1.clientserver.serverdetails.sql.SendDBQueryResponseCaller;
-import com.alma.hadl.m1.clientserver.serverdetails.security.ReceiveAuthRequest;
-import com.alma.hadl.m1.clientserver.serverdetails.security.ReceiveCQueryResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SecurityManager;
+import com.alma.hadl.m1.clientserver.serverdetails.security.SecurityPorts;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SendAuthResponse;
 import com.alma.hadl.m1.clientserver.serverdetails.security.SendCQueryRequest;
 import com.alma.hadl.m1.clientserver.serverdetails.securityQuery.ReceiveCQueryRequestCalled;
@@ -77,44 +73,40 @@ public class Application {
 				sendResponseCaller);
 		
 		//== Ports Connection Manager
-		ReceiveExternalSocketRequest receiveExternalSocketRequest = new ReceiveExternalSocketRequest();
 		SendExternalSocketResponse sendExternalSocketResponse = new SendExternalSocketResponse();
 		SendDBQueryRequest sendDBQueryRequest = new SendDBQueryRequest();
-		ReceiveDBQueryResponse receiveDBQueryResponse = new ReceiveDBQueryResponse();
-		ReceiveSecurityCheckResponse receiveSecurityCheckResponse = new ReceiveSecurityCheckResponse();
 		SendSecurityCheckRequest sendSecurityCheckRequest = new SendSecurityCheckRequest();
+		ConnectionPorts connectionPorts = new ConnectionPorts();
 		
 		//== Connection Manager
 		ConnectionManager connectionManager = new ConnectionManager(sendExternalSocketResponse,
 				sendDBQueryRequest,
 				sendSecurityCheckRequest,
-				receiveExternalSocketRequest,
-				receiveDBQueryResponse,
-				receiveSecurityCheckResponse);
+				connectionPorts.getReceiveExternalSocketRequest(),
+				connectionPorts.getReceiveDBQueryResponse(),
+				connectionPorts.getReceiveSecurityCheckResponse());
 		
 		//== Ports Database
 		SendDBQueryResponse sendDBQueryResponse = new SendDBQueryResponse();
 		SendCQueryResponse sendCQueryResponse = new SendCQueryResponse();
-		ReceiveDBQueryRequest receiveDBQueryRequest = new ReceiveDBQueryRequest();
-		ReceiveCQueryRequest receiveCQueryRequest = new ReceiveCQueryRequest();
+		DatabasePorts databasePorts = new DatabasePorts();
 		
 		//== Database
 		Database database = new Database(sendDBQueryResponse,
 				sendCQueryResponse,
-				receiveDBQueryRequest,
-				receiveCQueryRequest);
+				databasePorts.getReceiveDBQueryRequest(),
+				databasePorts.getReceiveCQueryRequest());
 		
 		//== Ports Security Manager
 		SendAuthResponse sendAuthResponse = new SendAuthResponse();
 		SendCQueryRequest sendCQueryRequest = new SendCQueryRequest();
-		ReceiveAuthRequest receiveAuthRequest = new ReceiveAuthRequest();
-		ReceiveCQueryResponse receiveCQueryResponse = new ReceiveCQueryResponse();
+		SecurityPorts securityPorts = new SecurityPorts();
 		
 		//== Security Manager
 		SecurityManager securityManager = new SecurityManager(sendAuthResponse,
 				sendCQueryRequest,
-				receiveAuthRequest,
-				receiveCQueryResponse);
+				securityPorts.getReceiveAuthRequest(),
+				securityPorts.getReceiveCQueryResponse());
 		
 		//== Roles SQL Request
 		ReceiveDBQueryResponseCalled receiveDBQueryResponseCalled = new ReceiveDBQueryResponseCalled();
@@ -123,8 +115,8 @@ public class Application {
 		SendDBQueryResponseCaller sendDBQueryResponseCaller = new SendDBQueryResponseCaller();
 		
 		//== SQL Request
-		SQLRequest sqlRequest = new SQLRequest(receiveDBQueryResponseCalled,
-				receiveDBQueryRequestCalled,
+		SQLRequest sqlRequest = new SQLRequest(receiveDBQueryRequestCalled,
+				receiveDBQueryResponseCalled,
 				sendDBQueryRequestCaller,
 				sendDBQueryResponseCaller);
 		
@@ -137,8 +129,8 @@ public class Application {
 		//== Clearance Request
 		ClearanceRequest clearanceRequest = new ClearanceRequest(receiveSecurityCheckResponseCalled,
 				receiveAuthRequestCalled,
-				sendSecurityCheckRequestCaller,
-				sendAuthResponseCaller);
+				sendAuthResponseCaller,
+				sendSecurityCheckRequestCaller);
 		
 		//== Role Security Query
 		ReceiveCQueryResponseCalled receiveCQueryResponseCalled = new ReceiveCQueryResponseCalled();
@@ -147,8 +139,8 @@ public class Application {
 		SendCQueryResponseCaller sendCQueryResponseCaller = new SendCQueryResponseCaller();
 		
 		//== Security Query
-		SecurityQuery securityQuery = new SecurityQuery(receiveCQueryResponseCalled,
-				receiveCQueryRequestCalled,
+		SecurityQuery securityQuery = new SecurityQuery(receiveCQueryRequestCalled,
+				receiveCQueryResponseCalled,
 				sendCQueryRequestCaller,
 				sendCQueryResponseCaller);
 		

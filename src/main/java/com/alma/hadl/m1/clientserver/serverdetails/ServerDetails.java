@@ -22,8 +22,8 @@ public class ServerDetails extends Configuration {
 		
 		this.bind(this.getPortFournis("ReceiveRequest"),
 				connectionManager.getPortFournis("ReceiveExternalSocketRequest"));
-		this.bind(this.getPortRequis("SendResponse"),
-				connectionManager.getPortRequis("SendExternalSocketResponse"));
+		this.bind(connectionManager.getPortRequis("SendExternalSocketResponse"),
+				this.getPortRequis("SendResponse"));
 		
 		this.attacher(connectionManager.getPortFournis("ReceiveDBQueryResponse"),
 				sqlRequest.getRoleRequis("ReceiveDBQueryResponseCalled"));

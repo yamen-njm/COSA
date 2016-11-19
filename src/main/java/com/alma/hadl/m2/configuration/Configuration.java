@@ -45,14 +45,16 @@ public abstract class Configuration implements Observer {
 	public void update(Observable observable, String message) {
 		for (Attachement attachement : attachements) {
 			if (attachement.getFrom() == observable) {
-				logger.trace("[attachement] {} <-> {}", attachement.getFrom().getClass().getName(), attachement.getTo().getClass().getName());
+				logger.trace("[attachement]");
+				//logger.trace("[attachement] {} <-> {}", attachement.getFrom().getClass().getName(), attachement.getTo().getClass().getName());
 				attachement.getTo().call(message);
 			}
 		}
 		
 		for (Binding binding : bindings) {
 			if (binding.getFrom() == observable) {
-				logger.trace("[binding] {} :: {}", binding.getFrom().getClass().getName(), binding.getTo().getClass().getName());
+				logger.trace("[binding]");
+				//logger.trace("[binding] {} :: {}", binding.getFrom().getClass().getName(), binding.getTo().getClass().getName());
 				binding.getTo().call(message);
 			}
 		}

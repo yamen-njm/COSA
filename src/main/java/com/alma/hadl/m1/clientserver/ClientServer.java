@@ -29,7 +29,7 @@ public class ClientServer extends Configuration {
 		this.bind(sendRequest, client.getPortRequis("SendRequest"));
 		this.bind(client.getPortFournis("ReceiveResponse"), receiveResponse);
 		
-		this.bind(server.getPortRequis("SendResponse"), serverDetails.getPortRequis("SendResponse"));
+		this.bind(serverDetails.getPortRequis("SendResponse"), server.getPortRequis("SendResponse"));
 		this.bind(server.getPortFournis("ReceiveRequest"), serverDetails.getPortFournis("ReceiveRequest"));
 	}
 	

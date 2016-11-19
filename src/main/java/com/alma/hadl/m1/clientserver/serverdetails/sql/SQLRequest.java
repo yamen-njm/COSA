@@ -6,13 +6,13 @@ import com.alma.hadl.m2.connecteur.RoleRequis;
 
 public class SQLRequest extends Connecteur {
 
-	public SQLRequest(RoleRequis receiveDBQueryResponseCalled,
-			RoleRequis receiveDBQueryRequestCalled,
+	public SQLRequest(RoleRequis receiveDBQueryRequestCalled,
+			RoleRequis receiveDBQueryResponseCalled,
 			RoleFournis sendDBQueryRequestCaller,
 			RoleFournis sendDBQueryResponseCaller) {
-		this.ajouterRoles("ReceiveDBQueryResponseCalled", receiveDBQueryResponseCalled,
-				"SendDBQueryRequestCaller", sendDBQueryRequestCaller);
 		this.ajouterRoles("ReceiveDBQueryRequestCalled", receiveDBQueryRequestCalled,
+				"SendDBQueryRequestCaller", sendDBQueryRequestCaller);
+		this.ajouterRoles("ReceiveDBQueryResponseCalled", receiveDBQueryResponseCalled,
 				"SendDBQueryResponseCaller", sendDBQueryResponseCaller);
 	}
 	

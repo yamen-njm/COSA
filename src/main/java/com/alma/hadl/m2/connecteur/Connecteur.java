@@ -45,7 +45,8 @@ public abstract class Connecteur implements Observer {
 	public void update(Observable observable, String message) {
 		for (Glue glue : glues) {
 			if (glue.getRoleFournis() == observable) {
-				logger.trace("[glue] {} >=< {}", glue.getRoleFournis().getClass().getName(), glue.getRoleRequis().getClass().getName());
+				logger.trace("[glue]");
+				//logger.trace("[glue] {} >=< {}", glue.getRoleFournis().getClass().getName(), glue.getRoleRequis().getClass().getName());
 				glue.getRoleRequis().call(message);
 			}
 		}
