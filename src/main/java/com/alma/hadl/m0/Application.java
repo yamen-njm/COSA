@@ -155,7 +155,7 @@ public class Application {
 		//== Bigu configurationuuuuu
 		ClientServer cs = new ClientServer(client, serveur, rpc, serverDetails);
 		
-		cs.getPortRequis("SendRequest").call("Hello world!");
+		cs.getPortRequis("SendRequest").call("Hello");
 	}
 
 }

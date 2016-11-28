@@ -8,14 +8,14 @@ import com.alma.hadl.m2.composant.PortComposantFournis;
 public class DatabasePorts {
 	
 	private boolean databaseInUse = false;
-	private List<String> clients = new ArrayList<String>();
+	private List<String> users = new ArrayList<String>();
 	
 	private ReceiveCQueryRequest receiveCQueryRequest = new ReceiveCQueryRequest();
 	private ReceiveDBQueryRequest receiveDBQueryRequest = new ReceiveDBQueryRequest();
 
 	public DatabasePorts() {
-		clients.add("Admin");
-		clients.add("User");
+		users.add("Admin");
+		users.add("User");
 	}
 	
 	public PortComposantFournis getReceiveCQueryRequest() {
@@ -40,7 +40,7 @@ public class DatabasePorts {
 		@Override
 		protected void execute(String message) {
 			databaseInUse = true;
-			this.getComposant().getPortRequis("SendDBQueryResponse").call(clients.toString());
+			this.getComposant().getPortRequis("SendDBQueryResponse").call(users.toString());
 			databaseInUse = false;
 		}
 

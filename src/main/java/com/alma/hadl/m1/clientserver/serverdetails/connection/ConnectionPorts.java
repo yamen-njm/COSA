@@ -40,7 +40,7 @@ public class ConnectionPorts {
 		@Override
 		protected void execute(String message) {
 			if (message.equals("OK")) {
-				this.getComposant().getPortRequis("SendDBQueryRequest").call("SELECT * FROM Clients");
+				this.getComposant().getPortRequis("SendDBQueryRequest").call("SELECT * FROM Users");
 			}
 		}
 
@@ -50,7 +50,7 @@ public class ConnectionPorts {
 
 		@Override
 		protected void execute(String message) {
-			this.getComposant().getPortRequis("SendExternalSocketResponse").call(requests.poll());
+			this.getComposant().getPortRequis("SendExternalSocketResponse").call(requests.poll() + " " + message + "!");
 		}
 
 	}
